@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" strict="true" name="HamClient" packages="" monitorInterval="30">
+    <Appenders>
+        <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="${sys:logs.dir}/td-console.log"
+                                 filePattern="${sys:logs.dir}/td-console-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d{ISO8601}{UTC}Z %p %c{2} %t %m%ex%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="150 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="0" max="3"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="performance" level="off" additivity="false">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Logger>
+        <Logger name="http" level="info" additivity="false">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Logger>
+        <Logger name="com.twc" level="info" additivity="false">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Logger>
+        <Root level="info" includeLocation="false">
+            <AppenderRef ref="RollingRandomAccessFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
